@@ -3,35 +3,16 @@ stages:
   - build
   - test
 
-# Set environment variables for folders in "cache" job settings for npm modules and Cypress binary
-variables:
-  npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
-
-# Cache using branch name
-# https://gitlab.com/help/ci/caching/index.md
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .cache/*
-    - cache/Cypress
-    - node_modules
-    - build
-
 # Install NPM dependencies and Cypress
 install:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: build
 
   script:
-    - npm install --frozen-lockfile
-    # check Cypress binary path and cached versions
-    - npx cypress cache path
-    - npx cypress cache list
-    - npm types
-    - npm lint
-    - npm test:unit:ci
-    - npm build:ci
+    - npm install
+    - npm run build
+    - npm start &
+    - npm test
 
 api-tests:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
