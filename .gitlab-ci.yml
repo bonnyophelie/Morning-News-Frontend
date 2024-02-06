@@ -1,14 +1,12 @@
 # Install Cypress, then run all tests (in parallel)
 stages:
-  - build
   - test
   - sonarqube-check
-  - sonarqube-vulnerability-report
 
 # Install NPM dependencies and Cypress
 install:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-  stage: build
+  stage: test
 
   script:
     - npm install
@@ -74,23 +72,5 @@ sonarqube-check:
   allow_failure: true
   only:
     - merge_requests
-    - master
     - main
-    - develop
 
-sonarqube-vulnerability-report:
-  stage: sonarqube-vulnerability-report
-  script:
-    - 'curl -u "${SONAR_TOKEN}:" "${SONAR_HOST_URL}/api/issues/gitlab_sast_export?projectKey=thedockerdwelers_frontend_AY1-P8wAQTcRLgZ1JcLe&branch=${CI_COMMIT_BRANCH}&pullRequest=${CI_MERGE_REQUEST_IID}" -o gl-sast-sonar-report.json'
-  allow_failure: true
-  only:
-    - merge_requests
-    - master
-    - main
-    - develop
-  artifacts:
-    expire_in: 1 day
-    reports:
-      sast: gl-sast-sonar-report.json
-  dependencies:
-    - sonarqube-check

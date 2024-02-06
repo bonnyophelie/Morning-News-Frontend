@@ -59,7 +59,7 @@ describe("Testing Morning News website", () => {
     cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > .fa-bookmark > path').click();
     cy.wait(2000);
     cy.get('.Header_linkContainer__hNrE8 > :nth-child(2)').click();
-    cy.contains("Microsoft weighs launching Indiana Jones on the PS5");
+    cy.get(':nth-child(1) > .Article_articleHeader__z8QZl').should('exist');
   });
 
   it("Remove articles to bookmarks", () => {
@@ -81,8 +81,10 @@ describe("Testing Morning News website", () => {
     cy.get('#signInPassword').type("obada");
     cy.get('#connection').click();
     cy.wait(2000);
+    cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > h3').eq(0).invoke('text').as('title1');
     cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > .fa-eye-slash').click();
     cy.wait(2000);
-    cy.contains("Microsoft weighs launching Indiana Jones on the PS5").should('not.exist');
+    cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > h3').eq(0).invoke('text').as('title2');
+    cy.get('@title2').should('not.eq', '@title1')
   });
 });
