@@ -26,7 +26,7 @@ function Header() {
   }, []);
 
   const handleRegister = () => {
-    fetch('https://site--morningnews--5267cvt64qgm.code.run/users/signup', {
+    fetch('https://morningnews.obadasoussachaddad.fr/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: signUpUsername, password: signUpPassword }),
@@ -42,7 +42,7 @@ function Header() {
   };
 
   const handleConnection = () => {
-    fetch('https://site--morningnews--5267cvt64qgm.code.run/users/signin', {
+    fetch('https://morningnews.obadasoussachaddad.fr/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: signInUsername, password: signInPassword }),

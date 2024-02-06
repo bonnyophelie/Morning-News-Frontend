@@ -15,7 +15,7 @@ function Article(props) {
       return;
     }
 
-    fetch(`https://site--morningnews--5267cvt64qgm.code.run/users/canBookmark/${user.token}`)
+    fetch(`https://morningnews.obadasoussachaddad.fr/users/canBookmark/${user.token}`)
       .then(response => response.json())
       .then(data => {
         if (data.result && data.canBookmark) {

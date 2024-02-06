@@ -13,7 +13,7 @@ function Home() {
   const [topArticle, setTopArticle] = useState({});
 
   useEffect(() => {
-    fetch('https://site--morningnews--5267cvt64qgm.code.run/articles')
+    fetch('https://morningnews.obadasoussachaddad.fr/articles')
       .then(response => response.json())
       .then(data => {
         setTopArticle(data.articles[0]);
