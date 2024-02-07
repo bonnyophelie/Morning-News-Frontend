@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
-import Article from '../components/Article'
+import Article from '../components/Article';
+import { render, screen } from '../@testing-library/react';
 
 const articleData = {
   title : "Test Article",
@@ -8,7 +9,8 @@ const articleData = {
 };
 
 it('articleData', () => {
-  const articleComp = renderer.create(
+  const articleData = renderer.create(
     <Article {...articleData} />
   )
+  expect(articleData).toBeInTheDocument();
 });
