@@ -1,59 +1,22 @@
-# Install Cypress, then run all tests (in parallel)
+default:
+  image: node:16.20.2-buster
+
 stages:
   - test
   - sonarqube-check
+  - build
+  - deploy
 
-# Install NPM dependencies and Cypress
-install:
+cypress_eslint:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: test
 
   script:
     - npm install
+    - npm run lint
     - npm run build
     - npm start &
     - npm test
-
-#api-tests:
-#  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-#  stage: test
-#  parallel: 5
-#  script:
-#    - npm start:ci & npx wait-on http://localhost:3000
-#   - npx cypress run --record --parallel --browser chrome --group "API" --spec "cypress/tests/api/*"
-
-#ui-chrome:
-#  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-#  stage: test
-#  parallel: 5
-#  script:
-#    - npm start:ci & npx wait-on http://localhost:3000
-#    - npx cypress run --record --parallel --browser chrome --group "UI - Chrome" --spec "cypress/tests/ui/*"
-
-#ui-chrome-mobile:
-#  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-#  stage: test
-#  parallel: 5
-#  script:
-#    - npm start:ci & npx wait-on http://localhost:3000
-#    - npx cypress run --record --parallel --browser chrome --group "UI - Chrome - Mobile" --spec "cypress/tests/ui/*" --config "viewportWidth=375,viewportHeight=667"
-
-#ui-firefox:
-#  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-#  stage: test
-#  parallel: 5
-#  script:
-#    - npm start:ci & npx wait-on http://localhost:3000
-#    - npx cypress run --record --parallel --browser firefox --group "UI - Firefox" --spec "cypress/tests/ui/*"
-
-#ui-firefox-mobile:
-#  image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-#  stage: test
-#  parallel: 5
-#  script:
-#    - npm start:ci & npx wait-on http://localhost:3000
-#    - npx cypress run --record --parallel --browser firefox --group "UI - Firefox - Mobile" --spec "cypress/tests/ui/*" --config "viewportWidth=375,viewportHeight=667"
-
 
 sonarqube-check:
   stage: sonarqube-check
@@ -74,3 +37,28 @@ sonarqube-check:
     - merge_requests
     - main
 
+dockerbuild:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
+
+  script: 
+    - docker build -t bonnyophelie/frontend --no-cache .
+    - docker push bonnyophelie/frontend
+  
+access_ec2:
+  stage: deploy
+  image: alpine
+
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+  script:
+    - ssh -o StrictHostKeyChecking=no admin@"$IP_ADDRESS" "docker run --name frontend -p 3000:3000 -d bonnyophelie/frontend" 
