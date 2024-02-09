@@ -61,4 +61,4 @@ access_ec2:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@16.171.254.238 "sudo docker run --name frontend -p 3000:3000 -d bonnyophelie/frontend" 
+    - ssh -o StrictHostKeyChecking=no admin@16.171.91.41 "sudo docker run --name frontend -p 3000:3000 -d bonnyophelie/frontend" 
