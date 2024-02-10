@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-if [ "$(docker ps -a | grep -c "frontend")" -gt 0 ]; then
-    sudo docker stop "frontend" && sudo docker rm "frontend"
+if [ "$(sudo docker compose ps -a)" -gt 0 ]; then
+    sudo docker compose down
 else :
     sudo docker compose up -d
 fi
