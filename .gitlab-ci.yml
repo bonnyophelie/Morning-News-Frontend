@@ -61,4 +61,4 @@ access_ec2:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@16.171.91.41 "sudo docker compose down || sudo docker compose up -d" 
+    - ssh -o StrictHostKeyChecking=no admin@16.171.31.210 "sudo docker compose down || sudo docker compose up -d" 
