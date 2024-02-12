@@ -14,7 +14,7 @@ cypress_eslint:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: test
   script:
-    - npm install
+    - npm install --legacy-peer-deps
     - npm run lint
     - npm run build
     - npm start &
@@ -107,4 +107,4 @@ access_ec2_prod:
     - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "./deploy.sh" 
   only:
     - main
-    - pre-prod
+    - prod
