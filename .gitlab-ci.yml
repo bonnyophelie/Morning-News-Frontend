@@ -4,19 +4,24 @@ default:
 stages:
   - test
   - sonarqube-check
-  - build
+  - build-test
+  - build-preprod
+  - build-prod
   - deploy
+
 
 cypress_eslint:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: test
-
   script:
     - npm install
     - npm run lint
     - npm run build
     - npm start &
     - npm test
+    - npm jest
+  only:
+    - main
 
 sonarqube-check:
   stage: sonarqube-check
@@ -38,17 +43,39 @@ sonarqube-check:
     - main
 
 dockerbuild_main-job:
-  stage: build
+  stage: build-test
   before_script:
     - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
   script:
-    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache .
+    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache ./Dockerfile-main
     - docker push $IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
   only:
     - main
   tags: [dockerfile]
+
+dockerbuild_preprod:
+  stage: build-pre-prod
+  before_script:
+    - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
+  script:
+    - docker build -t bonnyophelie/frontend:pre-prod --no-cache ./Dockerfile-preprod
+    - docker push bonnyophelie/frontend:pre-prod
+  only:
+    - pre-prod
+  tags: [dockerfile]
+
+dockerbuild_prod:
+  stage: build-prod
+  before_script:
+    - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
+  script:
+    - docker build -t bonnyophelie/frontend:prod --no-cache ./Dockerfile-prod
+    - docker push bonnyophelie/frontend:prod
+  only:
+    - prod
+  tags: [dockerfile]
   
-access_ec2:
+access_ec2_preprod:
   stage: deploy
   image: alpine
 
@@ -61,3 +88,23 @@ access_ec2:
 
   script:
     - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh" 
+  only:
+    - main
+    - pre-prod
+
+access_ec2_prod:
+  stage: deploy
+  image: alpine
+
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+  script:
+    - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "./deploy.sh" 
+  only:
+    - main
+    - pre-prod
