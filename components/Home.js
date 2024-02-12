@@ -13,7 +13,7 @@ function Home() {
   const [topArticle, setTopArticle] = useState({});
 
   useEffect(() => {
-    fetch('https://morningnews.obadasoussachaddad.fr/articles')
+    fetch('${process.env.NEXT_PUBLIC_BACKEND}/articles')
       .then(response => response.json())
       .then(data => {
         setTopArticle(data.articles[0]);

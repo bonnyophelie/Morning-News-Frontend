@@ -48,7 +48,7 @@ dockerbuild_main-job:
   before_script:
     - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
   script:
-    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache Dockerfile-main
+    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache --build-arg url=$NEXT_PUBLIC_BACKEND .
     - docker push $IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
   only:
     - main
@@ -59,7 +59,7 @@ dockerbuild_preprod:
   before_script:
     - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
-    - docker build -t bonnyophelie/frontend:pre-prod --no-cache Dockerfile-preprod
+    - docker build -t bonnyophelie/frontend:pre-prod --no-cache --build-arg url="https://backendpreprod.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:pre-prod
   only:
     - pre-prod
@@ -70,7 +70,7 @@ dockerbuild_prod:
   before_script:
     - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
-    - docker build -t bonnyophelie/frontend:prod --no-cache Dockerfile-prod
+    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://backend.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:prod
   only:
     - prod
