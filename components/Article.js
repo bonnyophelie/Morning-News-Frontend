@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import styles from '../styles/Article.module.css';
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
 function Article(props) {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function Article(props) {
       return;
     }
 
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND}/users/canBookmark/${user.token}`)
+    fetch(`${backendUrl}/users/canBookmark/${user.token}`)
       .then(response => response.json())
       .then(data => {
         if (data.result && data.canBookmark) {

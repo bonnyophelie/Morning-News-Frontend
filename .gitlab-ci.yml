@@ -9,13 +9,23 @@ stages:
   - build-prod
   - deploy
 
+dockerbuild_main-job:
+  stage: build-test
+  before_script:
+    - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
+  script:
+    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache --build-arg url=$NEXT_PUBLIC_BACKEND_URL .
+    - docker push $IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
+  only:
+    - main
+  tags: [dockerfile]
 
 cypress_eslint:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
   stage: test
   script:
     - npm install --legacy-peer-deps
-    - npm install eslint jest
+    - npm install eslint jest --legacy-peer-deps
     - npm run lint
     - npm run build
     - npm start &
@@ -42,17 +52,6 @@ sonarqube-check:
   only:
     - merge_requests
     - main
-
-dockerbuild_main-job:
-  stage: build-test
-  before_script:
-    - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
-  script:
-    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache --build-arg url=$NEXT_PUBLIC_BACKEND .
-    - docker push $IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
-  only:
-    - main
-  tags: [dockerfile]
 
 dockerbuild_preprod:
   stage: build-preprod
@@ -107,5 +106,4 @@ access_ec2_prod:
   script:
     - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "./deploy.sh" 
   only:
-    - main
     - prod
