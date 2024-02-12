@@ -101,7 +101,7 @@
     - name: Copy nginx reverse proxy conf file
       ansible.builtin.copy:
         dest: "/etc/nginx/sites-enabled/default"
-        src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend-terraform/default
+        src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend-terraform/Prod/default
         owner: "root"
         mode: '777'
 
@@ -131,7 +131,7 @@
         - { key: "PermitRootLogin", value: "no" }
         - { key: "PasswordAuthentication", value: "no" }
       notify:
-        - restart sshd
+        - restart ssh
 
     - name: Install UFW firewall
       ansible.builtin.apt:
@@ -199,7 +199,7 @@
         name: nginx
         state: reloaded
 
-    - name: Restart sshd
+    - name: Restart ssh
       ansible.builtin.service:
         name: ssh
         state: restarted

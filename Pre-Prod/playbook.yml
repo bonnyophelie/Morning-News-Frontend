@@ -101,14 +101,14 @@
     - name: Copy nginx reverse proxy conf file
       ansible.builtin.copy:
         dest: "/etc/nginx/sites-enabled/default"
-        src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend-terraform/default
+        src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend-terraform/Pre-Prod/default
         owner: "root"
         mode: '777'
 
     - name: 'Get certificate'
-      ansible.builtin.command: 'certbot -n --nginx -d morningnews.batch7.online'
+      ansible.builtin.command: 'certbot -n --nginx -d morningnewspreprod.batch7.online'
       args:
-        creates: '/etc/letsencrypt/live/morningnews.batch7.online'
+        creates: '/etc/letsencrypt/live/morningnewspreprod.batch7.online'
 
     - name: Copy docker-compose file
       ansible.builtin.copy:
@@ -131,7 +131,7 @@
         - { key: "PermitRootLogin", value: "no" }
         - { key: "PasswordAuthentication", value: "no" }
       notify:
-        - restart sshd
+        - restart ssh
 
     - name: Install UFW firewall
       ansible.builtin.apt:
@@ -199,7 +199,7 @@
         name: nginx
         state: reloaded
 
-    - name: Restart sshd
+    - name: Restart ssh
       ansible.builtin.service:
         name: ssh
         state: restarted

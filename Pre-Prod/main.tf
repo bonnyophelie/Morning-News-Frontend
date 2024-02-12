@@ -24,19 +24,19 @@ data "aws_vpc" "default" {
 
 
 resource "aws_eip_association" "frontend_association_EIP" {
-  instance_id   = aws_instance.frontend_instance.id
+  instance_id   = aws_instance.frontend_preprod_instance.id
   allocation_id = "eipalloc-0eb09a9d11e27c737"
 
 }
 
-resource "aws_instance" "frontend_instance" {
+resource "aws_instance" "frontend_preprod_instance" {
   ami                    = "ami-0506d6d51f1916a96"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.frontend_security_group.id]
   key_name               = "frontend"
 
   tags = {
-    Name = "frontend"
+    Name = "frontend_preprod"
   }
 }
 
@@ -66,3 +66,10 @@ resource "aws_security_group" "frontend_security_group" {
   }
 }
 
+#resource "local_file" "host" {
+#  content = {
+#    ip_public_address = aws_instance.frontend_preprod_instance.public_ip
+#  }
+#
+#  filename = "./host"
+#}
