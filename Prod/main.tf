@@ -25,7 +25,7 @@ data "aws_vpc" "default" {
 
 resource "aws_eip_association" "frontend_association_EIP" {
   instance_id   = aws_instance.frontend_instance.id
-  allocation_id = "eipalloc-0eb09a9d11e27c737"
+  allocation_id = "eipalloc-09ffa3a87838fde99"
 
 }
 
