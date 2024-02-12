@@ -37,17 +37,16 @@ sonarqube-check:
     - merge_requests
     - main
 
-dockerbuild:
+dockerbuild_main-job:
   stage: build
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
   before_script:
-    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
-
-  script: 
-    - docker build -t bonnyophelie/frontend --no-cache .
-    - docker push bonnyophelie/frontend
+    - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
+  script:
+    - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache .
+    - docker push $IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
+  only:
+    - main
+  tags: [dockerfile]
   
 access_ec2:
   stage: deploy
@@ -61,4 +60,4 @@ access_ec2:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@13.48.25.192 "./deploy.sh" 
+    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh" 
