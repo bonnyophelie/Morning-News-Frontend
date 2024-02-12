@@ -17,6 +17,7 @@ cypress_eslint:
     - npm run build
     - npm start &
     - npm test
+    - npm run jest 
 
 sonarqube-check:
   stage: sonarqube-check
