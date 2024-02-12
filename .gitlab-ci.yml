@@ -54,7 +54,7 @@ dockerbuild_main-job:
   tags: [dockerfile]
 
 dockerbuild_preprod:
-  stage: build-pre-prod
+  stage: build-preprod
   before_script:
     - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
