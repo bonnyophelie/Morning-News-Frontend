@@ -61,6 +61,8 @@ describe("Testing Articles and Bookmarks", () => {
     cy.get('#connection').click();
     cy.wait(2000);
     });
+  
+    const length = 9
 
   it("Top article existence", () => {
     cy.get('.TopArticle_topText__rDOeH')
@@ -68,7 +70,6 @@ describe("Testing Articles and Bookmarks", () => {
   });
 
   it("Count articles", () => {
-    const length = 9
     cy.get('svg.svg-inline--fa.fa-eye-slash.Article_hideIcon__gqvdZ')
       .should("have.length", length)
   });
@@ -87,7 +88,6 @@ describe("Testing Articles and Bookmarks", () => {
   });
 
   it("Hide articles", () => {
-    const length = 9
     cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > h3').eq(0).invoke('text').as('title1');
     cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > .fa-eye-slash').click();
     cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > h3').eq(0).invoke('text').as('title2');

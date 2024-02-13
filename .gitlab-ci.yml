@@ -2,9 +2,9 @@ default:
   image: node:16.20.2-buster
 
 stages:
+  - build-test
   - test
   - sonarqube-check
-  - build-test
   - build-preprod
   - build-prod
   - deploy
@@ -58,8 +58,8 @@ dockerbuild_preprod:
   before_script:
     - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
   script:
-    - docker build -t bonnyophelie/frontend:pre-prod --no-cache --build-arg url="https://backendpreprod.obadasoussachaddad.fr" .
-    - docker push bonnyophelie/frontend:pre-prod
+    - docker build -t $IMAGE_NAME:pre-prod --no-cache --build-arg url="https://backendpreprod.obadasoussachaddad.fr" .
+    - docker push $IMAGE_NAME:pre-prod
   only:
     - pre-prod
   tags: [dockerfile]
@@ -87,7 +87,7 @@ access_ec2_preprod:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh" 
+    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "export IMAGE=$IMAGE_NAME:pre-prod && ./deploy.sh" 
   only:
     - pre-prod
 
@@ -103,6 +103,6 @@ access_ec2_prod:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "./deploy.sh" 
+    - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "export IMAGE=bonnyophelie/frontend:prod && ./deploy.sh" 
   only:
     - prod
