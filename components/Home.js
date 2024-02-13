@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Article from './Article';
 import TopArticle from './TopArticle';
 import styles from '../styles/Home.module.css';
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
 function Home() {
   const bookmarks = useSelector((state) => state.bookmarks.value);
@@ -13,7 +14,7 @@ function Home() {
   const [topArticle, setTopArticle] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:3000/articles')
+    fetch(`${backendUrl}/articles`)
       .then(response => response.json())
       .then(data => {
         setTopArticle(data.articles[0]);
