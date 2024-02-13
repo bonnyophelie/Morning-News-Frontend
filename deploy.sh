@@ -3,7 +3,7 @@ echo IMAGE="$1"
 
 if [ $1 == "registry.gitlab.com/thedockerdwelers/frontend:pre-prod" ]; then
     sudo docker login registry.gitlab.com -u bonny.ophelie -p glpat-YHjHmTc3SiVGSXsZGrRM
-else:
+else :
     sudo docker login -u bonnyophelie -p dckr_pat_5OPjfn4-CNJFTO9gnD5xH3atUyA
 fi
 
