@@ -10,7 +10,9 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-north-1"
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  region     = "eu-north-1"
 }
 
 resource "aws_eip_association" "frontend_association_EIP" {
@@ -41,7 +43,7 @@ data "aws_security_group" "frontend_security" {
 
 #resource "local_file" "host" {
 #  content = {
-#    "ip_public_addres"s = "aws_instance.frontend_prod_instance.public_ip"
+#    "ip_public_address" = "aws_instance.frontend_prod_instance.public_ip"
 #  }
 #
 #  filename = "./host"

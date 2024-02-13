@@ -104,6 +104,7 @@
         src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend-terraform/Pre-Prod/default
         owner: "root"
         mode: '777'
+      notify: Reload nginx
 
     - name: 'Get certificate'
       ansible.builtin.command: 'certbot -n --nginx -d morningnewspreprod.batch7.online'
@@ -131,7 +132,7 @@
         - { key: "PermitRootLogin", value: "no" }
         - { key: "PasswordAuthentication", value: "no" }
       notify:
-        - restart ssh
+        - Restart sshd
 
     - name: Install UFW firewall
       ansible.builtin.apt:
@@ -199,7 +200,7 @@
         name: nginx
         state: reloaded
 
-    - name: Restart ssh
+    - name: Restart sshd
       ansible.builtin.service:
         name: ssh
         state: restarted
