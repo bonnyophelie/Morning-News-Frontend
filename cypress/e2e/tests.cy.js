@@ -86,7 +86,6 @@ describe("Testing Articles and Bookmarks", () => {
     cy.contains("No article");
   });
 
-
   it("Hide articles", () => {
     const length = 9
     cy.get(':nth-child(1) > .Article_articleHeader__z8QZl > h3').eq(0).invoke('text').as('title1');
