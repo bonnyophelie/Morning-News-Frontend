@@ -1,10 +1,10 @@
-#! /usr/bin/env bash
-echo IMAGE="$1" > .env
+#! /bin/bash
+echo IMAGE="$1"
 
-if [ $1 == "registry.gitlab.com/thedockerdwelers/frontend:pre-prod"]; then
-    docker login registry.gitlab.com -u bonny.ophelie -p glpat-DA2xY5Qbi78Nj1M8WCgv
+if [ $1 == "registry.gitlab.com/thedockerdwelers/frontend:pre-prod" ]; then
+    sudo docker login registry.gitlab.com -u bonny.ophelie -p glpat-YHjHmTc3SiVGSXsZGrRM
 else:
-    docker login -u bonnyophelie -p dckr_pat_5OPjfn4-CNJFTO9gnD5xH3atUyA
+    sudo docker login -u bonnyophelie -p dckr_pat_5OPjfn4-CNJFTO9gnD5xH3atUyA
 fi
 
 if [ sudo docker compose ps -q > /dev/null 2>&1 ]; then
