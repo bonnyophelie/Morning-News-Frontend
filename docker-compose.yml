@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   frontend:
-    image: bonnyophelie/frontend
+    image: ${IMAGE}
     container_name: frontend
     ports:
       - 3000:3000
