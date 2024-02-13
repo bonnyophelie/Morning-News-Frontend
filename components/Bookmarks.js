@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Article from './Article';
 import styles from '../styles/Bookmarks.module.css';
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
 function Bookmarks() {
   const bookmarks = useSelector((state) => state.bookmarks.value);

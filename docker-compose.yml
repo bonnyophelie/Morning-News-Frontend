@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  frontend:
+    image: bonnyophelie/frontend
+    container_name: frontend
+    ports:
+      - 3000:3000
+
+  node_exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - 9100:9100
+
+  
