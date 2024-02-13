@@ -87,7 +87,7 @@ access_ec2_preprod:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "export IMAGE=$IMAGE_NAME:pre-prod && ./deploy.sh" 
+    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 'export IMAGE=$IMAGE_NAME:pre-prod ./deploy.sh'
   only:
     - pre-prod
 
@@ -103,6 +103,6 @@ access_ec2_prod:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "export IMAGE=bonnyophelie/frontend:prod && ./deploy.sh" 
+    - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 'export IMAGE=bonnyophelie/frontend:prod && ./deploy.sh' 
   only:
     - prod
