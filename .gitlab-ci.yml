@@ -56,7 +56,7 @@ sonarqube-check:
 dockerbuild_preprod:
   stage: build-preprod
   before_script:
-    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
+    - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
   script:
     - docker build -t bonnyophelie/frontend:pre-prod --no-cache --build-arg url="https://backendpreprod.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:pre-prod
@@ -89,7 +89,6 @@ access_ec2_preprod:
   script:
     - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh" 
   only:
-    - main
     - pre-prod
 
 access_ec2_prod:
