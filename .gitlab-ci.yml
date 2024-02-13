@@ -56,7 +56,7 @@ sonarqube-check:
 dockerbuild_preprod:
   stage: build-preprod
   before_script:
-    - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
     - docker build -t bonnyophelie/frontend:pre-prod --no-cache --build-arg url="https://backendpreprod.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:pre-prod
@@ -67,7 +67,7 @@ dockerbuild_preprod:
 dockerbuild_prod:
   stage: build-prod
   before_script:
-    - docker login $DOCKER_REGISTRY_USER -p $DOCKER_PAT
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
     - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://backend.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:prod
