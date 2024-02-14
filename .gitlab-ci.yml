@@ -63,17 +63,6 @@ dockerbuild_preprod:
   only:
     - pre-prod
   tags: [dockerfile]
-
-dockerbuild_prod:
-  stage: build-prod
-  before_script:
-    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
-  script:
-    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://testprod.obadasoussachaddad.fr" .
-    - docker push bonnyophelie/frontend:prod
-  only:
-    - prod
-  tags: [dockerfile]
   
 access_ec2_preprod:
   stage: deploy
@@ -90,30 +79,17 @@ access_ec2_preprod:
     - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh registry.gitlab.com/thedockerdwelers/frontend:pre-prod" 
   only: 
     - pre-prod
-  rules:
-    - exists:
-      - dockerbuild_preprod
-      when: on_success
 
-rollback_deploy_preprod:
-  stage: deploy
-  image: alpine
-
+dockerbuild_prod:
+  stage: build-prod
   before_script:
-    - apk add openssh-client
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
-    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh registry.gitlab.com/thedockerdwelers/frontend:${CI_COMMIT_SHORT_SHA}" 
-  only: 
-    - pre-prod
-  rules:
-    - exists:
-      - dockerbuild_preprod
-      when: on_failure
+    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://testprod.obadasoussachaddad.fr" .
+    - docker push bonnyophelie/frontend:prod
+  only:
+    - prod
+  tags: [dockerfile]
 
 access_ec2_prod:
   stage: deploy
