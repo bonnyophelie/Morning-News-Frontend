@@ -7,7 +7,7 @@ else :
     sudo docker login -u bonnyophelie -p dckr_pat_5OPjfn4-CNJFTO9gnD5xH3atUyA
 fi
 
-if [ "$(sudo docker compose ps -q)" -gt 0 ]; then
+if [ sudo docker compose ps -q -gt 0 ]; then
     sudo docker compose down && sudo docker rmi && sudo docker compose up -d 
 else :
     sudo docker compose up -d
