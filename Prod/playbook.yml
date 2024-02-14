@@ -107,9 +107,9 @@
       notify: Reload nginx
 
     - name: 'Get certificate'
-      ansible.builtin.command: 'certbot -n --nginx -d morningnewsprod.batch7.online'
+      ansible.builtin.command: 'certbot -n --nginx -d morningnews-prod.batch7.online'
       args:
-        creates: '/etc/letsencrypt/live/morningnewsprod.batch7.online'
+        creates: '/etc/letsencrypt/live/morningnews-prod.batch7.online'
 
     - name: Copy docker-compose file
       ansible.builtin.copy:

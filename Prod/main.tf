@@ -32,11 +32,6 @@ resource "aws_instance" "frontend_prod_instance" {
   }
 }
 
-variable "security_group_id" {
-  type    = string
-  default = "sg-05a756ce8e92af73e"
-}
-
 data "aws_security_group" "frontend_security" {
   id = var.security_group_id
 }

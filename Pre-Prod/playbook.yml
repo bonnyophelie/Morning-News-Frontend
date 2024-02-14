@@ -107,9 +107,9 @@
       notify: Reload nginx
 
     - name: 'Get certificate'
-      ansible.builtin.command: 'certbot -n --nginx -d morningnewspreprod.batch7.online'
+      ansible.builtin.command: 'certbot -n --nginx -d morningnews-preprod.batch7.online'
       args:
-        creates: '/etc/letsencrypt/live/morningnewspreprod.batch7.online'
+        creates: '/etc/letsencrypt/live/morningnews-preprod.batch7.online'
 
     - name: Copy docker-compose file
       ansible.builtin.copy:
@@ -195,7 +195,7 @@
       notify: Restart crowdsec
 
   handlers:
-    - name: Reload Nginx
+    - name: Reload nginx
       ansible.builtin.service:
         name: nginx
         state: reloaded
