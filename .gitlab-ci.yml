@@ -90,6 +90,30 @@ access_ec2_preprod:
     - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh registry.gitlab.com/thedockerdwelers/frontend:pre-prod" 
   only: 
     - pre-prod
+  rules:
+    - exists:
+      - dockerbuild_preprod
+      when: on_success
+
+rollback_deploy_preprod:
+  stage: deploy
+  image: alpine
+
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+  script:
+    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh registry.gitlab.com/thedockerdwelers/frontend:${CI_COMMIT_SHORT_SHA}" 
+  only: 
+    - pre-prod
+  rules:
+    - exists:
+      - dockerbuild_preprod
+      when: on_failure
 
 access_ec2_prod:
   stage: deploy
