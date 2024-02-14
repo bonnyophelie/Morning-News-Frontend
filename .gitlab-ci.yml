@@ -69,7 +69,7 @@ dockerbuild_prod:
   before_script:
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
-    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://testprod.obadasoussachaddad.fr" .
+    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://morningnews.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:prod
   only:
     - prod
