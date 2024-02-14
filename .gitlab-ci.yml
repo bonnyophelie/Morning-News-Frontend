@@ -58,7 +58,7 @@ dockerbuild_preprod:
   before_script:
     - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
   script:
-    - docker build -t $IMAGE_NAME:pre-prod --no-cache --build-arg url="https://backendpreprod.obadasoussachaddad.fr" .
+    - docker build -t $IMAGE_NAME:pre-prod --no-cache --build-arg url="https://testpreprod.obadasoussachaddad.fr" .
     - docker push $IMAGE_NAME:pre-prod
   only:
     - pre-prod
@@ -69,7 +69,7 @@ dockerbuild_prod:
   before_script:
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
-    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://backend.obadasoussachaddad.fr" .
+    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://test.obadasoussachaddad.fr" .
     - docker push bonnyophelie/frontend:prod
   only:
     - prod
