@@ -6,12 +6,14 @@ Project Mornings is a web application designed to fetch news articles from the b
 
 **Table of Contents**
 
-- Prerequisites
-- Getting Started
-- Configuration
-- Deployment
-- Contributing
-- License
+        - Prerequisites
+        - Getting Started
+        - Configuration
+        - Deployment
+        - Contributing
+        - License
+
+
 - Prerequisites
 
 **Before you begin, ensure you have the following:**
