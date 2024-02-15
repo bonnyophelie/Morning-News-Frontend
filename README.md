@@ -4,17 +4,17 @@
 
 Project Mornings is a web application designed to fetch news articles from the backend using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
 
-# Table of Contents
+# Contents
 
- - [Prerequisites] (#installation--configuration)
- - [GettingStarted] (#getting--started)
- - [Configuration] (#configuration)
- - [Deployment] (#deployment)
- - [Contributing] (#contributing)
- - [License] (#license)
+  - [Prerequisites](#prerequisites)
+  - [GettingStarted](#getting--started)
+  - [Configuration](#configuration)
+  - [Deployment](#deployment)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 
-- Prerequisites
+# Prerequisites
 
 **Before you begin, ensure you have the following:**
 
@@ -22,7 +22,7 @@ Project Mornings is a web application designed to fetch news articles from the b
  - GitLab account and access to the project repository
  - NEWSAPI key (you can obtain one from https://newsapi.org/)
 
-- # Getting Started
+# Getting Started
 
     - Clone the repository to your local machine:
 
