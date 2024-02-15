@@ -58,7 +58,7 @@ The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is conf
             git commit -m "Configure CI/CD deployment"
             git push origin main
 
-    GitLab CI/CD will automatically trigger the deployment based on the configuration in .gitlab-ci.yml.
+   GitLab CI/CD will automatically trigger the deployment based on the configuration in .gitlab-ci.yml.
 
 - **Contributing**
 
