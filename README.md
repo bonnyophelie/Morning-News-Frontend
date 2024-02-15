@@ -10,8 +10,6 @@ Project Morning News is a web application designed to fetch news articles from t
   - [GettingStarted](#getting--started)
   - [Configuration](#configuration)
   - [Deployment](#deployment)
-  - [Contributing](#contributing)
-  - [License](#license)
 
 
 # Prerequisites
@@ -59,13 +57,5 @@ The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is conf
             git push origin main
 
 GitLab CI/CD will automatically trigger the deployment based on the configuration in .gitlab-ci.yml.
-
-# Contributing
-
-If you'd like to contribute to this project, please follow the Contributing Guidelines.
-
-# License
-
-This project is licensed under the MIT License. Feel free to use, modify, and distribute the code for your own projects.
 
 Happy coding! 🚀
