@@ -6,21 +6,21 @@ Project Mornings is a web application designed to fetch news articles from the b
 
 **Table of Contents**
 
-        - Prerequisites
-        - Getting Started
-        - Configuration
-        - Deployment
-        - Contributing
-        - License
+ - Prerequisites
+ - Getting Started
+ - Configuration
+ - Deployment
+ - Contributing
+ - License
 
 
 - Prerequisites
 
 **Before you begin, ensure you have the following:**
 
-    - Node.js installed on your machine
-    - GitLab account and access to the project repository
-    - NEWSAPI key (you can obtain one from https://newsapi.org/)
+ - Node.js installed on your machine
+ - GitLab account and access to the project repository
+ - NEWSAPI key (you can obtain one from https://newsapi.org/)
 
 - **Getting Started**
 
