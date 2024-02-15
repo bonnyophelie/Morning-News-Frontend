@@ -2,7 +2,7 @@
 
 **Overview**
 
-Project Mornings is a web application designed to fetch news articles using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
+Project Mornings is a web application designed to fetch news articles from the backend using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
 
 **Table of Contents**
 
@@ -24,7 +24,7 @@ Project Mornings is a web application designed to fetch news articles using the 
 
     - Clone the repository to your local machine:
 
-            git clone https://gitlab.com/your-username/project-mornings.git
+            git clone https://gitlab.com/thedockerdwelers/frontend.git
 
     - Change into the project directory:
 
@@ -48,21 +48,13 @@ The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is conf
 
     - Open .gitlab-ci.yml and update the deployment section:
 
-            deploy:
-            script:
-                - npm install
-                - npm run build
-                - ./deploy-script.sh  # Add your deployment script or commands here
-            only:
-                - master  # Adjust the branch to deploy from
-
     - Update the ./deploy-script.sh with your deployment script or commands.
 
     - Commit and push your changes to the GitLab repository:
 
             git add .
             git commit -m "Configure CI/CD deployment"
-            git push origin master
+            git push origin main
 
     GitLab CI/CD will automatically trigger the deployment based on the configuration in .gitlab-ci.yml.
 
