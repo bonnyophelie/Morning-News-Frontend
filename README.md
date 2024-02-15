@@ -48,11 +48,11 @@ Project Mornings is a web application designed to fetch news articles from the b
 
 The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is configured to deploy to a hosting platform of your choice. Update the CI/CD configuration as needed.
 
-    - Open .gitlab-ci.yml and update the deployment section:
+   - Open .gitlab-ci.yml and update the deployment section:
 
-    - Update the ./deploy-script.sh with your deployment script or commands.
+   - Update the ./deploy-script.sh with your deployment script or commands.
 
-    - Commit and push your changes to the GitLab repository:
+   - Commit and push your changes to the GitLab repository:
 
             git add .
             git commit -m "Configure CI/CD deployment"
