@@ -47,7 +47,7 @@ resource "aws_security_group" "frontend_security_group" {
   vpc_id = data.aws_vpc.default.id
 
   ingress = [
-    for port in [22, 80, 443] : {
+    for port in [22, 80, 443, 9100, 8080] : {
       description      = "TLS from VPC"
       from_port        = port
       to_port          = port
@@ -68,10 +68,19 @@ resource "aws_security_group" "frontend_security_group" {
   }
 }
 
-#resource "local_file" "host" {
-#  content = {
-#    ip_public_address = aws_instance.frontend_preprod_instance.public_ip
-#  }
-#
-#  filename = "./host"
+# Create lists that contain the names and IP adress of the created machines
+# locals {
+#  machine_names = [for name in aws_instance.frontend_preprod_instance.*.tags.Name : name]
+#  machine_ip    = [for ip in aws_instance.frontend_preprod_instance.*.public_ip : ip]
+#}
+
+# Create a file with the Machine Names and their associated Public IP adresses
+#resource "local_file" "file" {
+#  content  = <<EOT
+#%{for ip in aws_instance.frontend_preprod_instance.*.public_ip}
+#[${local.machine_names[index(local.machine_ip, ip)]}]
+#${ip}
+#%{endfor}
+#EOT
+#  filename = "host"
 #}
