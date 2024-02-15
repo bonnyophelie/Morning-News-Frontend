@@ -2,7 +2,7 @@
 
 # Overview
 
-Project Mornings is a web application designed to fetch news articles from the backend using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
+Project Morning News is a web application designed to fetch news articles from the backend using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
 
 # Contents
 
