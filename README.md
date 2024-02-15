@@ -1,17 +1,17 @@
-**Project Mornings News - Frontend Deployment with NEWSAPI**
+# Project Mornings News - Frontend Deployment with NEWSAPI
 
-**Overview**
+# Overview
 
 Project Mornings is a web application designed to fetch news articles from the backend using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
 
-**Table of Contents**
+# Table of Contents
 
- - Prerequisites
- - Getting Started
- - Configuration
- - Deployment
- - Contributing
- - License
+ - [Prerequisites] (#installation--configuration)
+ - [GettingStarted] (#getting--started)
+ - [Configuration] (#configuration)
+ - [Deployment] (#deployment)
+ - [Contributing] (#contributing)
+ - [License] (#license)
 
 
 - Prerequisites
@@ -22,7 +22,7 @@ Project Mornings is a web application designed to fetch news articles from the b
  - GitLab account and access to the project repository
  - NEWSAPI key (you can obtain one from https://newsapi.org/)
 
-- **Getting Started**
+- # Getting Started
 
     - Clone the repository to your local machine:
 
@@ -36,7 +36,7 @@ Project Mornings is a web application designed to fetch news articles from the b
 
             npm install
 
-- **Configuration**
+# Configuration
 
     - Modify the .env file in the root directory of the project:
 
@@ -44,7 +44,7 @@ Project Mornings is a web application designed to fetch news articles from the b
 
     - Replace your-newsapi-key with the actual NEWSAPI key you obtained.
 
-- **Deployment**
+# Deployment
 
 The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is configured to deploy to a hosting platform of your choice. Update the CI/CD configuration as needed.
 
@@ -60,11 +60,11 @@ The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is conf
 
    GitLab CI/CD will automatically trigger the deployment based on the configuration in .gitlab-ci.yml.
 
-- **Contributing**
+# Contributing
 
     If you'd like to contribute to this project, please follow the Contributing Guidelines.
 
-- **License**
+# License
 
     This project is licensed under the MIT License. Feel free to use, modify, and distribute the code for your own projects.
 
