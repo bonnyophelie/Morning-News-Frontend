@@ -34,7 +34,7 @@ function TopArticle(props) {
 
   return (
     <div className={styles.topContainer}>
-      <img src={props.urlToImage} className={styles.image} alt={props.title} />
+      <Image src={props.urlToImage} className={styles.image} alt={props.title} />
       <div className={styles.topText}>
         <h2 className={styles.topTitle}>{props.title}</h2>
         <FontAwesomeIcon onClick={() => handleBookmarkClick()} icon={faBookmark} style={iconStyle} className={styles.bookmarkIcon} />
