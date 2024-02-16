@@ -13,7 +13,7 @@ jest.mock('next/image', () => {
 	return {
 		__esModule: true,
 		default: () => {
-			return <img />
+			return <img alt=""/>
 		},
 	}
 })
