@@ -38,7 +38,7 @@ function Article(props) {
     <div className={styles.articles}>
       <div className={styles.articleHeader}>
         <h3>{props.title}</h3>
-        <FontAwesomeIcon onClick={() => handleBookmarkClick()} icon={faBookmark} style={iconStyle} className={styles.bookmarkIcon} />
+        <FontAwesomeIcon onClick={() => handleBookmarkClick()} icon={faBookmark} style={iconStyle} className={styles.bookmarkIcon} data-testid="bookmark-icon"/>
         {props.inBookmarks || <FontAwesomeIcon icon={faEyeSlash} onClick={() => dispatch(hideArticle(props.title))} className={styles.hideIcon} />}
       </div>
       <h4 style={{ textAlign: "right" }}>- {props.author}</h4>

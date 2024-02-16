@@ -7,7 +7,7 @@ Project Morning News is a web application designed to fetch news articles from t
 # Contents
 
   - [Prerequisites](#prerequisites)
-  - [GettingStarted](#getting--started)
+  - [Getting Started](#getting--started)
   - [Configuration](#configuration)
   - [Deployment](#deployment)
 
