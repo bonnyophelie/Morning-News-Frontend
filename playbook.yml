@@ -2,19 +2,19 @@
   hosts: all
   become: true
   role:
-    - optimization\roles\docker
+    - ./roles/docker
     
 
 - name: Installing Nginx Reverse-Proxy
   hosts: all
   become: true
   role:
-    - optimization\roles\nginx
+    - ./roles/nginx
 
 
 - name: Security rules
   hosts: all
   become: true
   role:
-    - optimization\roles\security
+    - ./roles/security
     
