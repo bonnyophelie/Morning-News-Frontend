@@ -1,7 +1,8 @@
-# Morning News Frontend Deployment
+# Project Mornings News - Frontend Deployment with NEWSAPI
 
 # Overview
 
+Project Morning News is a web application designed to fetch news articles from the backend using the NEWSAPI and display them on the frontend. This README.md file provides instructions on deploying the frontend of the app using GitLab.
 This repository contains the necessary files and configurations to deploy the frontend part of the Morning News project using Terraform for infrastructure provisioning and Ansible for configuration management.
 
 # Table of Contents
@@ -22,30 +23,34 @@ This repository contains the necessary files and configurations to deploy the fr
 
 **Before you begin, ensure you have the following prerequisites:**
 
- - Git
+ - Node.js installed on your machine
+ - GitLab account with appropriate permissions
+ - NEWSAPI key (you can obtain one from https://newsapi.org/)
  - Terraform (v1.0.0 or higher)
  - Ansible (v2.10.0 or higher)
- - GitLab account with appropriate permissions
+
  
 # Getting Started
 
- - Clone the Repository
+ - Clone the repository to your local machine:
 
-Clone this repository to your local machine:
+            git clone https://gitlab.com/thedockerdwelers/frontend.git
 
-            git clone https://gitlab.com/thedockerdwelers/frontend-terraform_ansible.git
-            cd morning-news-frontend
+ - Change into the project directory:
 
- - Install Dependencies
-Ensure you have Terraform and Ansible installed on your local machine.
+            cd project-mornings
 
-            # Install Terraform
-            # Follow instructions at: https://www.terraform.io/downloads.html
+ - Install the project dependencies:
 
-            # Install Ansible
-            # Follow instructions at: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+            npm install
 
 # Configuration
+
+ - Modify the .env file in the root directory of the project:
+
+            NEWSAPI_KEY=your-newsapi-key
+
+ - Replace your-newsapi-key with the actual NEWSAPI key you obtained.
 
 **Terraform Configuration**
 
@@ -60,6 +65,29 @@ Update the Ansible inventory file with the IP addresses or hostnames of the depl
 Add more hosts as needed
 
 # Deployment
+
+The frontend can be deployed using GitLab CI/CD. The .gitlab-ci.yml file is configured to deploy to a hosting platform of your choice. Update the CI/CD configuration as needed.
+
+ - Open .gitlab-ci.yml and update the deployment section:
+
+ - Update the ./deploy-script.sh with your deployment script or commands.
+
+ - Commit and push your changes to the GitLab repository:
+
+            git add .
+            git commit -m "Configure CI/CD deployment"
+            git push origin main
+
+GitLab CI/CD will automatically trigger the deployment based on the configuration in .gitlab-ci.yml.
+
+ - Install Dependencies
+Ensure you have Terraform and Ansible installed on your local machine.
+
+            # Install Terraform
+            # Follow instructions at: https://www.terraform.io/downloads.html
+
+            # Install Ansible
+            # Follow instructions at: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
 **Terraform Deployment**
 
