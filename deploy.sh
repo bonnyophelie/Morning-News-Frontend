@@ -1,10 +1,17 @@
 #! /bin/bash
+CI_REGISTRY="registry.gitlab.com"
+CI_REGISTRY_USER="bonnyophelie"
+DOCKER_REGISTRY_USER="bonnyophelie"
 echo IMAGE="$1" > .env
 
-if [ "$1" == "registry.gitlab.com/thedockerdwelers/frontend:pre-prod" ]; then
-    sudo docker login registry.gitlab.com -u bonny.ophelie -p glpat-YHjHmTc3SiVGSXsZGrRM
+if [ "$1" == "$IMAGE_NAME:pre-prod" ]; then
+    read -s -p "Enter Gitlab personal access token: " ACCESS_TOKEN
+    echo "$ACCESS_TOKEN" | sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -password-stdin
+    unset ACCESS_TOKEN
 else :
-    sudo docker login -u bonnyophelie -p dckr_pat_5OPjfn4-CNJFTO9gnD5xH3atUyA
+    read -s -p "Enter Docker Hub personal access token: " ACCESS_TOKEN
+    echo "$ACCESS_TOKEN" | sudo docker login -u $DOCKER_REGISTRY_USER -password-stdin
+    unset ACCESS_TOKEN
 fi
 
 if sudo docker compose ps | grep -q "Up"; then
