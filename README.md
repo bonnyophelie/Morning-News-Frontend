@@ -76,3 +76,5 @@ After the infrastructure is provisioned, use Ansible to deploy the frontend appl
 
 
             ansible-playbook -i host playbook.yml -u your-user --private-key path/to/your/private/key
+
+Happy coding !
