@@ -1,4 +1,4 @@
 .terraform/
 .vscode
-./Pre-Prod/terraform.tfvars
-./Prod/terraform.tfvars
+./terraform.tfvars
+./terraform.tfvars
