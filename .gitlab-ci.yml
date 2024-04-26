@@ -7,12 +7,13 @@ stages:
   - sonarqube-check
   - build-preprod
   - build-prod
-  - deploy
+  - deploy-preprod
+  - deploy-prod
 
 dockerbuild_main-job:
   stage: build-test
   before_script:
-    - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $GITLAB_PAT
   script:
     - docker build -t $IMAGE_NAME:${CI_COMMIT_SHORT_SHA} --no-cache --build-arg url=$NEXT_PUBLIC_BACKEND_URL .
     - docker push $IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
@@ -56,9 +57,9 @@ sonarqube-check:
 dockerbuild_preprod:
   stage: build-preprod
   before_script:
-    - docker login $CI_REGISTRY -u bonny.ophelie -p $GITLAB_PAT
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $GITLAB_PAT
   script:
-    - docker build -t $IMAGE_NAME:pre-prod --no-cache --build-arg url="https://testpreprod.obadasoussachaddad.fr" .
+    - docker build -t $IMAGE_NAME:pre-prod --no-cache --build-arg url=$URL_PREPROD .
     - docker push $IMAGE_NAME:pre-prod
   only:
     - pre-prod
@@ -69,14 +70,14 @@ dockerbuild_prod:
   before_script:
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_PAT
   script:
-    - docker build -t bonnyophelie/frontend:prod --no-cache --build-arg url="https://testprod.obadasoussachaddad.fr" .
-    - docker push bonnyophelie/frontend:prod
+    - docker build -t "$DOCKER_REGISTRY_USER/$IMAGE_NAME:prod" --no-cache --build-arg url=$URL_PROD .
+    - docker push "$DOCKER_REGISTRY_USER/$IMAGE_NAME:prod"
   only:
     - prod
   tags: [dockerfile]
   
 access_ec2_preprod:
-  stage: deploy
+  stage: deploy-preprod
   image: alpine
 
   before_script:
@@ -87,12 +88,13 @@ access_ec2_preprod:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@51.21.85.80 "./deploy.sh registry.gitlab.com/thedockerdwelers/frontend:pre-prod" 
+    - ssh -o StrictHostKeyChecking=no "admin@${IP_ADDRESS_PREPROD}"
+    - ./deploy.sh "$CI_REGISTRY/$IMAGE_NAME:pre-prod"
   only: 
     - pre-prod
 
 access_ec2_prod:
-  stage: deploy
+  stage: deploy-prod
   image: alpine
 
   before_script:
@@ -103,6 +105,7 @@ access_ec2_prod:
     - chmod 700 ~/.ssh
 
   script:
-    - ssh -o StrictHostKeyChecking=no admin@16.16.55.245 "./deploy.sh bonnyophelie/frontend:prod"
+    - ssh -o StrictHostKeyChecking=no "admin@${IP_ADDRESS_PROD}"
+    - ./deploy.sh "$DOCKER_REGISTRY_USER/$IMAGE_NAME:prod"
   only:
     - prod
