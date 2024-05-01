@@ -1,19 +1,18 @@
 
-resource "aws_key_pair" "frontend-key-deployer" {
-  key_name   =  var.aws_key_name
-  public_key = var.aws_public_key
-}
+#resource "aws_key_pair" "frontend-key-deployer" {
+#  key_name   = var.aws_key_name
+#  public_key = var.aws_public_key
+#}
 
 data "aws_vpc" "default" {
   default = true
 }
 
 
-resource "aws_eip_association" "frontend_association_EIP" {
-  instance_id   = aws_instance.frontend_instance.id
-  allocation_id = var.aws_allocation_id
-
-}
+# resource "aws_eip_association" "frontend_association_EIP" {
+#   instance_id   = aws_instance.frontend_instance.id
+#   allocation_id = var.aws_allocation_id
+# }
 
 resource "aws_instance" "frontend_instance" {
   ami                    = var.aws_ami

@@ -34,19 +34,19 @@
   notify: Restart the Nginx service
 
 - name: 'Get certificate'
-  ansible.builtin.command: 'certbot -n --nginx -d morningnews-preprod.batch7.online'
+  ansible.builtin.command: 'certbot -n --nginx -d frontend.batch7.online'
   args:
-    creates: '/etc/letsencrypt/live/morningnews-preprod.batch7.online'
+    creates: '/etc/letsencrypt/live/frontend.batch7.online'
 
 - name: Copy files
-  tasks:
+  block:
     - name: Copy docker-compose file
       ansible.builtin.copy:
-        src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend/docker-compose.yml
+        src: frontend/docker-compose.yml
         dest: /home/admin
 
     - name: Copy deploy script
       ansible.builtin.copy:
-        src: /home/engineer/Bureau/Batch7/Projet/morningnews-projet/frontend/deploy.sh
+        src: frontend/deploy.sh
         dest: /home/admin
         mode: a+x
