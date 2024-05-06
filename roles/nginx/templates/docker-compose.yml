@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  frontend:
+    image: ${IMAGE}
+    container_name: frontend
+    ports:
+      - 3000:3000
+
+  node_exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - 9100:9100
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    command:
+      - '-port=8081'
+    ports:
+      - 8081:8081
+    restart: always
+    deploy:
+      mode: global
