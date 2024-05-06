@@ -19,6 +19,7 @@ dockerbuild_main-job:
     - docker push ${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
   only:
     - main
+  tags: [dockerfile]
 
 cypress_eslint_jest:
   image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
@@ -62,7 +63,8 @@ dockerbuild_preprod:
     - docker push ${IMAGE_NAME}:pre-prod
   only:
     - pre-prod
-  
+  tags: [dockerfile]
+
 dockerbuild_prod:
   stage: build-prod
   before_script:
@@ -72,6 +74,7 @@ dockerbuild_prod:
     - docker push "${DOCKER_REGISTRY_USER}/${IMAGE_NAME}:prod"
   only:
     - prod
+  tags: [dockerfile]
   
 access_ec2_preprod:
   stage: deploy-preprod
