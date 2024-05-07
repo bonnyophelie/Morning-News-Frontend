@@ -65,5 +65,5 @@ resource "local_file" "file" {
 ${ip}
 %{endfor}
 EOT
-  filename = "inventory"
+  filename = "../inventory"
 }
