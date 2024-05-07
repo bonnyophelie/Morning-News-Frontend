@@ -70,7 +70,7 @@ dockerbuild_prod:
   before_script:
     - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_PAT"
   script:
-    - docker build -t "${DOCKER_REGISTRY_USER}/${IMAGE_NAME}:prod" --no-cache --build-arg url="$$NEXT_PUBLIC_BACKEND_URL_PROD" .
+    - docker build -t "${DOCKER_REGISTRY_USER}/${IMAGE_NAME}:prod" --no-cache --build-arg url="$NEXT_PUBLIC_BACKEND_URL_PROD" .
     - docker push "${DOCKER_REGISTRY_USER}/${IMAGE_NAME}:prod"
   only:
     - prod
