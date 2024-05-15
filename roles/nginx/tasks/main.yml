@@ -34,9 +34,13 @@
   notify: Restart the Nginx service
 
 - name: 'Get certificate'
-  ansible.builtin.command: 'certbot -n --nginx -d frontend.batch7.online'
-  args:
-    creates: '/etc/letsencrypt/live/frontend.batch7.online'
+  vars_files:
+    - "{{ env }}_vars.yml"
+  tasks:
+    - name: Run certbot command
+      ansible.builtin.command: 'certbot -n --nginx -d {{ dns_variable }}
+      args:
+        creates: '/etc/letsencrypt/live/{{ dns_variable }}'
 
 - name: Copy files
   block:
